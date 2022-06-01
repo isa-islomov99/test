@@ -1,26 +1,48 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div class="app">
+    <div class="container">
+      <h3 class="text-center mt-4">{{ formData[0].addTitle }}</h3>
+      <form
+        @submit.prevent
+        v-for="form in formData"
+        :key="form.id"
+        class="form_grid mt-4"
+      >
+        <FormInputs
+          v-for="input in form.elements"
+          :key="input.id"
+          :items="input"
+        />
+      </form>
+    </div>
+  </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import { formData } from "@/data.js";
+import FormInputs from "@/components/FormInputs.vue";
 
 export default {
-  name: 'App',
+  name: "App",
   components: {
-    HelloWorld
-  }
-}
+    FormInputs,
+  },
+
+  data() {
+    return {
+      formData: formData,
+    };
+  },
+};
 </script>
 
 <style>
-#app {
+.app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+}
+.form_grid {
+  display: grid;
+  grid-template-columns: repeat(1fr, 24);
+  grid-auto-rows: repeat(1fr, 3);
 }
 </style>
